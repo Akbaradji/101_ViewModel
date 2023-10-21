@@ -25,7 +25,7 @@ class CobaViewModel : ViewModel() {
     fun insertData(nm: String, tlp: String, almt: String ,jk: String) {
         namaUsr = nm;
         noTlp = tlp;
-        Alamat = almt
+        Alamat = almt;
         jenisKl = jk;
     }
 

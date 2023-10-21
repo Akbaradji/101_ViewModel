@@ -194,7 +194,7 @@ fun TextHasil(namanya: String, telponnya: String, alamatnya:String, jenisnya: St
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp))
         Text(text = "Telepon : " + telponnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
-        Text(text = "Alamat : " + jenisnya,
+        Text(text = "Alamat : " + alamatnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
         Text(text = "jenis kelamin : " + jenisnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
