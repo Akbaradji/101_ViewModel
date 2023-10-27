@@ -5,8 +5,12 @@ import com.example.praktikum5.R
 object datasource {
     val jenis = listOf(
         R.string.laki,
-        R.string.wanita,
-        R.string.wanita2
+        "wanita",
 
     )
+    val status = listOf(
+        "Belum Menikah",
+        "Menikah",
+    )
 }
+
