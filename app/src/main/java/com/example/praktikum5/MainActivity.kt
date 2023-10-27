@@ -64,22 +64,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Register() {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = "Register",
-            fontSize = 25.sp,
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold
-        )
-    }
-}
-
 
 @Composable
 fun TampilLayout(
@@ -189,6 +173,13 @@ fun TampilFrom(cobaViewModel: CobaViewModel = viewModel()){
     val dataForm: dataform
     val uiState by cobaViewModel.uiState.collectAsState()
     dataForm = uiState
+    Text(
+        text = "Register",
+        fontSize = 25.sp,
+        color = Color.Black,
+        textAlign = TextAlign.Center,
+        fontWeight = FontWeight.Bold
+    )
 
     OutlinedTextField(
         value = textNama,
@@ -212,7 +203,7 @@ fun TampilFrom(cobaViewModel: CobaViewModel = viewModel()){
         }
     )
     OutlinedTextField(
-        value = textTlp,
+        value = texteml,
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         shape = MaterialTheme.shapes.large,
@@ -222,6 +213,12 @@ fun TampilFrom(cobaViewModel: CobaViewModel = viewModel()){
             texteml = it
         }
     )
+    SelectJK(
+        options = jenis.map { id -> context.resources.getString(id)},
+        oneSelectionChanged = { cobaViewModel.setJenisK(it)})
+    Status(
+        options = status.map { id -> context.resources.getString(id)},
+        oneSelectionChanged = { cobaViewModel.setJenisK(it)})
     OutlinedTextField(
         value = textAlmt,
         singleLine = true,
@@ -233,12 +230,7 @@ fun TampilFrom(cobaViewModel: CobaViewModel = viewModel()){
         }
     )
 
-    SelectJK(
-        options = jenis.map { id -> context.resources.getString(id)},
-        oneSelectionChanged = { cobaViewModel.setJenisK(it)})
-    Status(
-        options = status.map { id -> context.resources.getString(id)},
-        oneSelectionChanged = { cobaViewModel.setJenisK(it)})
+
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
@@ -255,12 +247,13 @@ fun TampilFrom(cobaViewModel: CobaViewModel = viewModel()){
         emailnya = cobaViewModel.email,
         alamatnya = cobaViewModel.Alamat,
         jenisnya = cobaViewModel.jenisKl,
+        statusnya = cobaViewModel.status
     )
 }
 
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, emailnya: String ,alamatnya:String, jenisnya: String){
+fun TextHasil(namanya: String, telponnya: String, emailnya: String ,alamatnya:String, jenisnya: String, statusnya: String){
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -279,6 +272,8 @@ fun TextHasil(namanya: String, telponnya: String, emailnya: String ,alamatnya:St
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
         Text(text = "jenis kelamin : " + jenisnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
+        Text(text = "status : " + statusnya,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
     }
 }
 
@@ -292,5 +287,4 @@ fun Greeting() {}
 @Composable
 fun GreetingPreview() {
     TampilLayout()
-    Register()
 }
