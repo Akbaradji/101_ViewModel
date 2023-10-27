@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.praktikum5.data.dataform
 import com.example.praktikum5.data.datasource.jenis
+import com.example.praktikum5.data.datasource.status
 import com.example.praktikum5.ui.theme.Praktikum5Theme
 
 class MainActivity : ComponentActivity() {
@@ -105,6 +106,11 @@ fun SelectJK(
     var selectedValue by rememberSaveable { mutableStateOf("")}
 
     Column (modifier = Modifier.padding(16.dp)) {
+        Text(
+            text = "jenis kelamin:",
+            color = Color.Black,
+            textAlign = TextAlign.Center
+        )
         options.forEach{ item ->
             Row (
                 modifier = Modifier.selectable(
@@ -116,6 +122,7 @@ fun SelectJK(
                 ),
                 verticalAlignment = Alignment.CenterVertically
             ){
+
                 RadioButton(
                     selected = selectedValue == item,
                     onClick = {
@@ -140,6 +147,11 @@ fun Status(
     var selectedValue by rememberSaveable { mutableStateOf("")}
 
     Column (modifier = Modifier.padding(16.dp)) {
+        Text(
+            text = " status :",
+            color = Color.Black,
+            textAlign = TextAlign.Center
+        )
         options.forEach{ item ->
             Row (
                 modifier = Modifier.selectable(
@@ -151,9 +163,6 @@ fun Status(
                 ),
                 verticalAlignment = Alignment.CenterVertically
             ){
-                Text(
-                    text = "Status"
-                    )
                 RadioButton(
                     selected = selectedValue == item,
                     onClick = {
@@ -174,6 +183,7 @@ fun TampilFrom(cobaViewModel: CobaViewModel = viewModel()){
     var textNama by remember { mutableStateOf("") }
     var textTlp by remember { mutableStateOf("") }
     var textAlmt by remember { mutableStateOf("") }
+    var texteml by remember { mutableStateOf("") }
 
     val context = LocalContext.current
     val dataForm: dataform
@@ -202,6 +212,17 @@ fun TampilFrom(cobaViewModel: CobaViewModel = viewModel()){
         }
     )
     OutlinedTextField(
+        value = textTlp,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(text = "Email") },
+        onValueChange = {
+            texteml = it
+        }
+    )
+    OutlinedTextField(
         value = textAlmt,
         singleLine = true,
         shape = MaterialTheme.shapes.large,
@@ -215,10 +236,13 @@ fun TampilFrom(cobaViewModel: CobaViewModel = viewModel()){
     SelectJK(
         options = jenis.map { id -> context.resources.getString(id)},
         oneSelectionChanged = { cobaViewModel.setJenisK(it)})
+    Status(
+        options = status.map { id -> context.resources.getString(id)},
+        oneSelectionChanged = { cobaViewModel.setJenisK(it)})
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel.insertData(textNama, textTlp,textAlmt, dataForm.sex)
+            cobaViewModel.insertData(textNama, textTlp,textAlmt,texteml, dataForm.sex)
         }
     ) { Text(
         text = stringResource(R.string.register),
@@ -228,6 +252,7 @@ fun TampilFrom(cobaViewModel: CobaViewModel = viewModel()){
     TextHasil(
         namanya = cobaViewModel.namaUsr ,
         telponnya = cobaViewModel.noTlp,
+        emailnya = cobaViewModel.email,
         alamatnya = cobaViewModel.Alamat,
         jenisnya = cobaViewModel.jenisKl,
     )
@@ -235,7 +260,7 @@ fun TampilFrom(cobaViewModel: CobaViewModel = viewModel()){
 
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, alamatnya:String, jenisnya: String){
+fun TextHasil(namanya: String, telponnya: String, emailnya: String ,alamatnya:String, jenisnya: String){
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -247,6 +272,8 @@ fun TextHasil(namanya: String, telponnya: String, alamatnya:String, jenisnya: St
         Text(text = "Nama :" + namanya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp))
         Text(text = "Telepon : " + telponnya,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
+        Text(text = "Email : " + emailnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
         Text(text = "Alamat : " + alamatnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))

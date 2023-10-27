@@ -4,4 +4,6 @@
     <string name="perempuan">Perempuan</string>
     <string name="register">Register</string>
     <string name="status">Status</string>
+    <string name="menikah">Menikah</string>
+    <string name="belummenikah">Belum Menikah</string>
 </resources>
